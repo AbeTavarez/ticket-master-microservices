@@ -14,7 +14,9 @@ const app = express();
 const PORT = 3000;
 
 // App Settings
-app.set('trust proxy', true); // trust engress nginx proxy
+
+// trust engress nginx proxy traffic
+app.set('trust proxy', true); 
 
 // Middlewares
 app.use(express.json());
