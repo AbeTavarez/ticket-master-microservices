@@ -15,14 +15,14 @@ const PORT = 3000;
 
 // App Settings
 
-// trust engress nginx proxy traffic
+// trust ingress nginx proxy traffic
 app.set('trust proxy', true); 
 
 // Middlewares
 app.use(express.json());
 app.use(cookieSession({
   signed: false, // disable encryption
-  secure: true, // HTTPS connections only
+  //secure: true, // HTTPS connections only
 }));
 
 // Routes
@@ -41,6 +41,10 @@ app.use(errorHandler);
 
 // Main
 const start = async () => {
+  if (!process.env.JWT_KEY) {
+    throw new Error("JWT must be defined");
+    
+  }
   try {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
     console.log('Connected to mongodb');
