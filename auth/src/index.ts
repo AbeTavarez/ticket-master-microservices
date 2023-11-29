@@ -2,6 +2,7 @@ import express from "express";
 import "express-async-errors";
 import mongoose from "mongoose";
 import cookieSession from "cookie-session";
+// import morgan from "morgan";
 
 import { currentUserRouter } from "./routes/current-user";
 import { signinRouter } from "./routes/signin";
@@ -16,14 +17,17 @@ const PORT = 3000;
 // App Settings
 
 // trust ingress nginx proxy traffic
-app.set('trust proxy', true); 
+app.set("trust proxy", true);
 
 // Middlewares
+// app.use(morgan("dev"));
 app.use(express.json());
-app.use(cookieSession({
-  signed: false, // disable encryption
-  //secure: true, // HTTPS connections only
-}));
+app.use(
+  cookieSession({
+    signed: false, // disable encryption
+    //secure: true, // HTTPS connections only
+  }),
+);
 
 // Routes
 app.use(currentUserRouter);
@@ -43,12 +47,10 @@ app.use(errorHandler);
 const start = async () => {
   if (!process.env.JWT_KEY) {
     throw new Error("JWT must be defined");
-    
   }
   try {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
-    console.log('Connected to mongodb');
-    
+    console.log("Connected to mongodb");
   } catch (err) {
     console.error(err);
   }
@@ -56,6 +58,5 @@ const start = async () => {
     console.log(`Listening on port: ${PORT}`);
   });
 };
-
 
 start();
