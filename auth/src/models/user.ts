@@ -42,11 +42,6 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-// creates a new user with supplied attributes
-userSchema.statics.build = (attrs: UserAttrs) => {
-  return new User(attrs);
-};
-
 // before saving the user hash the password
 userSchema.pre("save", async function (done) {
   // hash the password if it has been modified
@@ -56,6 +51,11 @@ userSchema.pre("save", async function (done) {
   }
   done();
 });
+
+// creates a new user with supplied attributes
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
+};
 
 const User = mongoose.model<UserDoc, UserModel>("User", userSchema);
 
