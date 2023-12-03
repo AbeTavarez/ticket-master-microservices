@@ -6,6 +6,9 @@ let mongo: any;
 
 // === Initial Setup
 beforeAll(async () => {
+    // create dummy test env key
+    process.env.JWT_KEY = 'jwtkey';
+    
     // create instance of mongo
     mongo = await MongoMemoryServer.create();
     const mongoUri = await mongo.getUri();
