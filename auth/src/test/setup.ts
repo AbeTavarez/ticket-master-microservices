@@ -7,11 +7,11 @@ let mongo: any;
 // === Initial Setup
 beforeAll(async () => {
     // create instance of mongo
-    mongo = new MongoMemoryServer();
+    mongo = await MongoMemoryServer.create();
     const mongoUri = await mongo.getUri();
 
     // connect to mongo
-    await mongoose.connect(mongoUri);
+    await mongoose.connect(mongoUri, {});
 });
 
 // === Runs before each of the tests
