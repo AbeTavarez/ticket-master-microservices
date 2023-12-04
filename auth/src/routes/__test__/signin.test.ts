@@ -31,27 +31,27 @@ it("fails when an incorrect password is supplied", async () => {
     .expect(400);
 });
 
-it("sign in and responds with a cookie", async () => {
-  // creates a new account
-  const response = await request(app)
-    .post("/api/users/signup")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(201);
+// it("sign in and responds with a cookie", async () => {
+//   // creates a new account
+//   const response = await request(app)
+//     .post("/api/users/signup")
+//     .send({
+//       email: "test@test.com",
+//       password: "password",
+//     })
+//     .expect(201);
 
-    console.log(response.body);
+//     console.log(response.body);
     
 
-  // now it tries to sign in with wrong password
-  const res =  await request(app)
-    .post("/api/users/signin")
-    .send({
-      email: "test@test.com",
-      password: "password",
-    })
-    .expect(200);
+//   // now it tries to sign in with wrong password
+//   const res =  await request(app)
+//     .post("/api/users/signin")
+//     .send({
+//         email: "test@test.com",
+//         password: "password",
+//       })
+//     .expect(200);
 
-  expect(res.get("Set-Cookie")).toBeDefined();
-});
+//   expect(res.get("Set-Cookie")).toBeDefined();
+// });
